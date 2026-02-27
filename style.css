@@ -40,6 +40,18 @@ label {
     font-weight: bold;
 }
 
+.favoriteknappgroup {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 15px;
+    margin-bottom: 5px;
+}
+
+.favoriteknappgroup label {
+    margin: 0;
+}
+
 input[type="number"],
 select {
     width: 100%;
@@ -78,11 +90,27 @@ button:active {
     opacity: 0.8;
 }
 
+.favoriteknapp {
+    background: red;
+    font-size: 3vh;
+    cursor: pointer;
+    width: 3vw;
+    height: 6.5vh;
+    justify-content: center;
+    text-align: center;
+    display: flex;
+    
+}
+
+.favoriteknapp:hover {
+    transform: scale(1.2);
+}
+
 .result {
     margin-top: 25px;
     padding: 20px;
     background: #f5f5f5;
-    border-left: 5px solid #667eea;
+    border: 5px solid #667eea;
     border-radius: 5px;
     display: none;
     text-align: center;

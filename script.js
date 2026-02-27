@@ -1,5 +1,53 @@
 const apikey = 'cd697b0a7e7ffb2a81ca90fb';
 
+
+
+const currencyNames = {};
+(function grabNames(){
+  const sel = document.getElementById('fromcurrency');
+  Array.from(sel.options).forEach(o => {
+    currencyNames[o.value] = o.textContent;
+  });
+})();
+
+function allCurrencyCodes() {
+  return Object.keys(currencyNames);
+}
+
+let favs = JSON.parse(localStorage.getItem('favs')) || [];
+
+function saveFav(code) {
+  if (!favs.includes(code)) {
+    favs.unshift(code);
+    if (favs.length > 20) favs.pop();
+    localStorage.setItem('favs', JSON.stringify(favs));
+    renderSelects();
+  }
+}
+
+function renderSelects() {
+  const codes = allCurrencyCodes();
+  const fromSel = document.getElementById('fromcurrency');
+  const toSel = document.getElementById('tocurrency');
+  [fromSel, toSel].forEach(sel => {
+    const current = sel.value;
+    sel.innerHTML = '';
+    favs.forEach(c => {
+      if (codes.includes(c)) {
+        sel.insertAdjacentHTML('beforeend', `<option value="${c}">${currencyNames[c] || c}</option>`);
+      }
+    });
+    codes.forEach(c => {
+      if (!favs.includes(c)) {
+        sel.insertAdjacentHTML('beforeend', `<option value="${c}">${currencyNames[c] || c}</option>`);
+      }
+    });
+    sel.value = current;
+  });
+}
+
+renderSelects();
+
 const convertbutton = document.getElementById('convertbutton');
 
 convertbutton.addEventListener('click', () => {
@@ -27,20 +75,10 @@ convertbutton.addEventListener('click', () => {
     });
 });
 
-
-const currencies = {
-  NOK: "Norwegian Krone",
-  USD: "US Dollar",
-  EUR: "Euro",
-  GBP: "British Pound",
-  SEK: "Swedish Krona"
-};
-
-const select = document.getElementById("currency");
-
-for (const code in currencies) {
-  const option = document.createElement("option");
-  option.value = code;
-  option.textContent = `${code} - ${currencies[code]}`;
-  select.appendChild(option);
-}
+Array.from(document.querySelectorAll('.favoriteknapp')).forEach(btn => {
+  btn.addEventListener('click', () => {
+    const target = btn.getAttribute('data-target');
+    const sel = document.getElementById(target);
+    if (sel) saveFav(sel.value);
+  });
+});
