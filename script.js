@@ -26,3 +26,21 @@ convertbutton.addEventListener('click', () => {
       alert('Noe gikk galt. Sjekk konsollen.');
     });
 });
+
+
+const currencies = {
+  NOK: "Norwegian Krone",
+  USD: "US Dollar",
+  EUR: "Euro",
+  GBP: "British Pound",
+  SEK: "Swedish Krona"
+};
+
+const select = document.getElementById("currency");
+
+for (const code in currencies) {
+  const option = document.createElement("option");
+  option.value = code;
+  option.textContent = `${code} - ${currencies[code]}`;
+  select.appendChild(option);
+}
