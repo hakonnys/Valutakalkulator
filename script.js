@@ -28,49 +28,50 @@ function saveFav(code) {
   }
 }
 
-function renderSelects() {
-  const codes = allCurrencyCodes();
-  const fromSel = document.getElementById('fromcurrency');
-  const toSel = document.getElementById('tocurrency');
-  [fromSel, toSel].forEach(sel => {
-    const current = sel.value;
-    sel.innerHTML = '';
-    favs.forEach(c => {
-      if (codes.includes(c)) {
-        sel.insertAdjacentHTML('beforeend', `<option value="${c}">${currencyNames[c] || c}</option>`);
+function renderSelects() { //dette er starten på en funksjon som oppdaterer menyene for å velge valuta
+  const codes = allCurrencyCodes(); // den samler alle valutakodene som skal være tilgjengelige menyen funker med favoritter og ikke favortiter.
+  const fromSel = document.getElementById('fromcurrency'); // henter select elementet for fromcurrency
+  const toSel = document.getElementById('tocurrency'); // henter select elementet for tocurrency
+  [fromSel, toSel].forEach(sel => { // denne gjør så begge menyene blir oppdatert på samme måte og ser like ut
+    const current = sel.value; // lagrer hvilken valuta som er valgt i menyen før den oppdateres
+    sel.innerHTML = ''; // tømmer menyen slik at den kan fylles på nytt med favoritter først og så resten av valutakodene
+    favs.forEach(c => { //starter en loop som går igjennom alle favortitene og plaserer de øverst i menyen
+      if (codes.includes(c)) { // sjekker om favoritt valutaen finnes i listen over alle valutakoder for å unngå å legge til ugyldige koder i menyen
+        sel.insertAdjacentHTML('beforeend', `<option value="${c}">${currencyNames[c] || c}</option>`); // lager et nytt menyvalg med valutakoden og legger det til i menyen
       }
     });
-    codes.forEach(c => {
+    codes.forEach(c => { // legger inn andre valutaer som ikke er favoritter i menyen
       if (!favs.includes(c)) {
-        sel.insertAdjacentHTML('beforeend', `<option value="${c}">${currencyNames[c] || c}</option>`);
+        sel.insertAdjacentHTML('beforeend', `<option value="${c}">${currencyNames[c] || c}</option>`); // lager et nytt menyvalg med valutakoden og legger det til i menyen
       }
     });
-    sel.value = current;
+    sel.value = current; // husker hvilker valuta som var valgt siden menyen ble tømt
   });
 }
 
-renderSelects();
+renderSelects(); 
 
-const convertbutton = document.getElementById('convertbutton');
+const convertbutton = document.getElementById('convertbutton'); // den kjører koden når du klikker på konverter knappen
 
-convertbutton.addEventListener('click', () => {
-  const amount = parseFloat(document.getElementById('amount').value) || 0;
-  const fromcurrency = document.getElementById('fromcurrency').value;
-  const tocurrency = document.getElementById('tocurrency').value;
-  const resultbox = document.querySelector('.result');
+convertbutton.addEventListener('click', () => { // den venter på et klikk og når det skjer så kjøres koden som henter valutakursen
+  const amount = parseFloat(document.getElementById('amount').value) || 0; // her tar den beløpet som brukeren har skrevet inn og gjør det om til et tall
+  const fromcurrency = document.getElementById('fromcurrency').value; // her tar den valutakoden som brukeren har valgt i fromcurrency menyen
+  const tocurrency = document.getElementById('tocurrency').value; // her tar den valutakoden som brukeren har valgt i tocurrency menyen
+  const resultbox = document.querySelector('.result'); // her henter den elementet som skal vise resultatet av konverteringen
 
+  // skjekker om beløpet er gyldig og hvis ikke så viser den en feilmelding og stopper koden
   if (!amount || amount <= 0) {
     alert('Skriv inn et gyldig beløp');
     return;
   }
 
-  fetch(`https://v6.exchangerate-api.com/v6/${apikey}/latest/${fromcurrency}`)
-    .then(res => res.json())
-    .then(data => {
-      const rate = data.conversion_rates[tocurrency];
-      const converted = (amount * rate).toFixed(2);
-      resultbox.innerHTML = `${converted} ${tocurrency} <br> (1 ${fromcurrency} = ${rate} ${tocurrency})`;
-      resultbox.classList.add('show');
+  fetch(`https://v6.exchangerate-api.com/v6/${apikey}/latest/${fromcurrency}`) // her sender den en fetch forespørsel ti APIet for å hente valutakursen
+    .then(res => res.json()) // den gjør svarene om til json format
+    .then(data => { 
+      const rate = data.conversion_rates[tocurrency]; // den henter kursen for den valuttaen som brukeren valgte å konvertere til
+      const converted = (amount * rate).toFixed(2); // /her regner den ut beløpet med å multiplisere med kursen
+      resultbox.innerHTML = `${converted} ${tocurrency} <br> (1 ${fromcurrency} = ${rate} ${tocurrency})`; // den setter teksten som skal vises til brukeren i resultat boksen
+      resultbox.classList.add('show'); // denne legger den til i css classen fordi boksen vises ikke før det kommer et resultat
     })
     .catch(err => {
       console.error(err);
