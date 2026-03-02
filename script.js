@@ -5,23 +5,26 @@ const apikey = 'cd697b0a7e7ffb2a81ca90fb'; // dette er API nøkkelen som brukes 
 const currencyNames = {}; // denne laget et tomt objekt som senere skal fylled med valutakoder og navn
 (function grabNames(){ //lager en funksjon som umiddelbart kjører
   const sel = document.getElementById('fromcurrency'); //henter select elementet for fromcurrency
-  Array.from(sel.options).forEach(o => {
-    currencyNames[o.value] = o.textContent;
+  Array.from(sel.options).forEach(o => { //går gjennom alle option elementene i select menyen
+    currencyNames[o.value] = o.textContent; // Lagrer valutakode og navn i currencyNames
   });
 })();
 
+//denne funksjonen henter alle valutakodene fra currencynames
 function allCurrencyCodes() {
   return Object.keys(currencyNames);
 }
 
+// denne ser om du har noen valutaer lagret som favoritter i localstorage og om du ikke har det så lager den en ny liste
 let favs = JSON.parse(localStorage.getItem('favs')) || [];
 
+// denne funksjonen legger til en valutakode i favorittlisten og oppdaterer localstorage og menyene
 function saveFav(code) {
-  if (!favs.includes(code)) {
-    favs.unshift(code);
-    if (favs.length > 20) favs.pop();
-    localStorage.setItem('favs', JSON.stringify(favs));
-    renderSelects();
+  if (!favs.includes(code)) { // sjekker om koden allerede er i favorittlisten
+    favs.unshift(code); // legger til den nye favoritten først i listen
+    if (favs.length > 20) favs.pop(); // hvis listen blir for lang så fjerner den den eldste favoritten
+    localStorage.setItem('favs', JSON.stringify(favs)); // lagrer favorittlisten i localstorage noe som gjør at den ikke blir borte når du lukker nettsiden
+    renderSelects(); // oppdaterer menyene slik at favorittene vises øverst når bruker velger valutta
   }
 }
 
