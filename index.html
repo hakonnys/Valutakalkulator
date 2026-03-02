@@ -7,20 +7,21 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="cyberbackground"></div>
+    <div class="cyberbackground"></div> <!-- Dette er bakgrunnen, som jeg fant på nett -->
 
-    <div class="container">
+    <div class="container"> <!-- Dette er en beholder som holder alt innholdet på siden -->
         <h1>Valutakalkulator</h1>
         
 
-        <input type="number" id="amount" placeholder="Skriv beløp" value="100">
+        <input type="number" id="amount" placeholder="Skriv beløp" value="100"> <!-- Dette er inputfeltet for beløp, brukeren kan skrive her-->
         
         
         <div class="favoriteknappgroup">
         <label for="fromcurrency">Fra valuta:</label>
         <button type="button" class="favoriteknapp" data-target="fromcurrency">❤️</button>
         </div>
-        <select id="fromcurrency"> 
+        <!-- dette er koden for favoitt knappen -->
+        <select id="fromcurrency"> <!-- Dette er menyen for å velge fra valuta -->
                 <option value="AED">AED - UAE Dirham</option>
                 <option value="AFN">AFN - Afghan Afghani</option>
                 <option value="ALL">ALL - Albanian Lek</option>
@@ -195,7 +196,7 @@
         <label for="tocurrency">Til valuta:</label>
         <button type="button" class="favoriteknapp" data-target="tocurrency">❤️</button>
         </div>
-        <select id="tocurrency">
+        <select id="tocurrency"> <!-- Dette er menyen for å velge til valuta -->
                 <option value="AED">AED - UAE Dirham</option>
                 <option value="AFN">AFN - Afghan Afghani</option>
                 <option value="ALL">ALL - Albanian Lek</option>

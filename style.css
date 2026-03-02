@@ -7,6 +7,7 @@
     box-sizing: border-box;
 }
 
+/* body er hele siden og her er litt styling for å gjøre det fint og sentrert */
 body {
     justify-content: center;
     align-items: center;
@@ -16,6 +17,7 @@ body {
     display: flex;
 }
 
+/* conteiner er hele voting systemet i en boks*/
 .container {
     background: rgb(255, 255, 255);
     opacity: 0.95;
@@ -26,12 +28,14 @@ body {
     width: 100%;
 }
 
+/* h1 er tittelen på siden */
 h1 {
     text-align: center;
     margin-bottom: 30px;
     color: #333;
 }
 
+/*label er teksten som står over inpufeltene*/
 label {
     display: block;
     margin-top: 15px;
@@ -40,6 +44,7 @@ label {
     font-weight: bold;
 }
 
+/*dette er koden for hjerte knappen*/
 .favoriteknappgroup {
     display: flex;
     align-items: center;
@@ -48,11 +53,8 @@ label {
     margin-bottom: 5px;
 }
 
-.favoriteknappgroup label {
-    margin: 0;
-}
 
-input[type="number"],
+input[type="number"], /*dette er koden for input, der brukeren skriver inn beløpet de vil skjekke valutaen til*/ /*number betyr at det kun kan skrives inn tall*/
 select {
     width: 100%;
     padding: 10px;
@@ -62,13 +64,14 @@ select {
     font-size: 16px;
 }
 
+/* dette er koden for når brukeren har klikket på inputfeltet, da får den en blå border */
 input[type="number"]:focus,
 select:focus {
     outline: none;
     border-color: #667eea;
-    box-shadow: none;
-}
+} 
 
+/*dette er konverter knappen som bruker klikker på*/
 button {
     width: 100%;
     padding: 12px;
@@ -82,14 +85,17 @@ button {
     transition: transform 0.2s;
 }
 
+/*når bruker hover musen over knappen så blir den litt mer gjennomsiktig*/
 button:hover {
     opacity: 0.9;
 }
 
+/*når bruker klikker på knappen så blir den litt enda mer gjennomsiktig*/
 button:active {
     opacity: 0.8;
 }
 
+/* dette er koden for favoitt knappen */
 .favoriteknapp {
     background: red;
     font-size: 3vh;
@@ -102,10 +108,12 @@ button:active {
     
 }
 
+/*når bruker hover musen over favoitt knappen så blir den litt større*/
 .favoriteknapp:hover {
     transform: scale(1.2);
 }
 
+/* dette er koden for resultatet som kommer opp når brukeren har klikket på konverter knappen */
 .result {
     margin-top: 25px;
     padding: 20px;
@@ -120,6 +128,7 @@ button:active {
     display: block;
 }
 
+/* dette er koden for teksten som står i resultatet */
 .result p {
     margin: 8px 0;
     color: #333;
@@ -135,6 +144,9 @@ button:active {
     color: #777;
     font-size: 14px;
 }
+
+
+/* Dette er koden for bakgrunnen, som jeg fant på nett */
 
 .cyberbackground {
   --c: rgba(3,233,244,.1);

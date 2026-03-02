@@ -1,10 +1,10 @@
-const apikey = 'cd697b0a7e7ffb2a81ca90fb';
+const apikey = 'cd697b0a7e7ffb2a81ca90fb'; // dette er API nøkkelen som brukes for å hente valutakurser fra app.exchangerate-api.com
 
 
 
-const currencyNames = {};
-(function grabNames(){
-  const sel = document.getElementById('fromcurrency');
+const currencyNames = {}; // denne laget et tomt objekt som senere skal fylled med valutakoder og navn
+(function grabNames(){ //lager en funksjon som umiddelbart kjører
+  const sel = document.getElementById('fromcurrency'); //henter select elementet for fromcurrency
   Array.from(sel.options).forEach(o => {
     currencyNames[o.value] = o.textContent;
   });
